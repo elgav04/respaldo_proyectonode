@@ -1,0 +1,84 @@
+<nav class="navbar navbar-dark bg-dark">
+    <a href="/" class="navbar-brand">REGISTRO DE AREAS DE TRABAJO</a>
+ 
+  </nav>
+
+  <div class="agregar_contenedor"></div>
+<div class="row mt-5">
+  <div class="card">
+    <div class="card-body">
+      <form id="formulario" name="formulario" #f="ngForm" (ngSubmit)="AgregarValor()" novalidate>
+        
+        <div class="form-group">
+          <label for="" class="control-label" hidden>ID Área</label>
+          <input type="text" readonly="readonly" [(ngModel)]="user.idarea" name="idarea" placeholder="ID Área" class="form-control" hidden>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="control-label">ID Empresa</label>
+          <input type="number" [(ngModel)]="user.idempresa" name="idempresa" placeholder="Digite el ID de la Empresa" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="control-label">ID Sucursal</label>
+          <input type="number" [(ngModel)]="user.idsuc" name="idsuc" placeholder="Digite el ID de la Sucursal" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="control-label">Área</label>
+          <input type="text" [(ngModel)]="user.area" name="area" placeholder="Digite el nombre del Área" class="form-control">
+          <div ng-show="!user.area && formulario.$submitted" class="alert alert-warning">Digite el Área</div>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="control-label">Fecha Creación</label>
+          <input type="date" [(ngModel)]="user.fecha_creacion" name="fecha_creacion" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary" formnovalidate value="Save" onclick="javascript:alert('Registro Almacenado')">
+          Agregar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="form-group">
+  <input type="text" class="form-control" name="filterPost" placeholder="Digite el área que desea buscar" [(ngModel)]="filterPost">
+</div>
+
+
+ <div class="container">  
+    <div class="row mt-25">          
+   <table class="table table-borbered table-hover">
+     <thead>
+        <tr>
+            <th>NO</th>
+            <th>ID EMPRESA</th>
+            <th>ID SUCURSAL</th>
+            <th>AREA</th>
+            <th>FECHA CREACION</th>          
+            <th>ESTADO</th>  
+        </tr>
+  
+      </thead>
+    <tbody >
+  
+                <tr *ngFor="let User of TUser | filterareasTrabajo:filterPost">
+                    <td >{{User.idarea}}</td>
+                    <td >{{User.idempresa}}</td>
+                    <td >{{User.idsuc}}</td>
+                    <td >{{User.area}}</td>
+                    <td >{{User.fecha_creacion}}</td>
+                    <td >{{User.estado}}</td>
+                    <td><button  class="btn btn-danger"  (click)="EliminarData(User.idarea)" onclick="javascript:alert('Registro Eliminado')" >Eliminar</button> </td>
+                    <td>
+                        <button  class="btn btn-success" [routerLink]="['/areas_trabajo/edit', User.idarea]">Actualizar</button></td>
+                  </tr>
+  
+     </tbody>
+   </table>
+</div>
+</div>
+

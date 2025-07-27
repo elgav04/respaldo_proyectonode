@@ -1,0 +1,33 @@
+<nav class="navbar navbar-dark bg-dark">
+    <a href="/" class="navbar-brand">FORMA DE PAGO</a>
+  </nav>
+  
+  <div class="row mt-5">
+    <div class="card">
+      <div class="card-body">
+        <form action="">
+            
+            <div class="form-group">
+                <label for="" class="control-label" hidden>ID Forma de Pago</label>
+                <input type="text" readonly="readonly" [(ngModel)]="user.idfpago" name="idfpago" placeholder="ID" class="form-control" hidden>
+              </div>
+      
+              <div class="form-group">
+                <label for="" class="control-label">ID Empresa</label>
+                <input type="number" [(ngModel)]="user.idempresa" name="idempresa" placeholder="DIGITE EL ID DE LA EMPRESA" class="form-control" required>
+              </div>
+      
+              <div class="form-group">
+                <label for="" class="control-label">Forma de Pago</label>
+                <input type="text" [(ngModel)]="user.formapago" name="formapago" placeholder="DIGITE LA FORMA DE PAGO" class="form-control" required>
+                <div ng-show="!user.formapago && formulario.$submitted" class="alert alert-warning">Ingrese la forma de pago</div>
+              </div>
+
+              <button class="btn btn-success btn-block" (click)="updateUser()" onclick="javascript:alert('Registro Actualizado')">
+                Actualizar
+              </button>    
+        </form>
+      </div>
+    </div>
+  </div>
+

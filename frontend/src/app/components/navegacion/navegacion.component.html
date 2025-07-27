@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <!-- Opciones del Modulo-->
+      <button mat-button [matMenuTriggerFor]="menu1">Sistema Proyecto Node</button> <!-- Agregar nombre de Menu-->
+  
+        <mat-menu #menu1="matMenu">
+          <button mat-menu-item [matMenuTriggerFor]="SubMenu1">Empresa</button>
+          <button mat-menu-item [matMenuTriggerFor]="SubMenu2">Sucursales</button>
+          <button mat-menu-item [matMenuTriggerFor]="SubMenu3">Proveedor</button>
+          <button mat-menu-item [matMenuTriggerFor]="SubMenu4">Áreas de Trabajo</button>
+          <button mat-menu-item [matMenuTriggerFor]="SubMenu5">Empleados</button>
+          <button mat-menu-item [matMenuTriggerFor]="SubMenu6">Usuarios</button>
+          <button mat-menu-item [matMenuTriggerFor]="SubMenu7">Clientes</button>
+          <button mat-menu-item [matMenuTriggerFor]="SubMenu8">Producto</button>
+          <button mat-menu-item [matMenuTriggerFor]="SubMenu9">Formas de Pago</button>
+        </mat-menu>
+  
+        <!--Opcion del SUBMENU Opcion1-->
+        <mat-menu #SubMenu1="matMenu">
+          <a mat-menu-item href="/empresa">Empresa</a>
+        </mat-menu>
+  
+        <!--Opcion del SUBMENU Opcion2-->
+        <mat-menu #SubMenu2="matMenu">
+            <a mat-menu-item href="/sucursales">Sucursales</a><!--Colocar el nombre del app-routing.module.ts-->
+        </mat-menu>
+
+        <mat-menu #SubMenu3="matMenu">
+          <a mat-menu-item href="/proveedor">Proveedor</a>
+        </mat-menu>
+
+        <mat-menu #SubMenu4="matMenu">
+          <a mat-menu-item href="/areas_trabajo">Áreas de Trabajo</a>
+        </mat-menu>
+
+        <mat-menu #SubMenu5="matMenu">
+          <a mat-menu-item href="/empleados">Empleados</a>
+        </mat-menu>
+
+        <mat-menu #SubMenu6="matMenu">
+          <a mat-menu-item href="/usuario">Usuario</a>
+          <a mat-menu-item href="/tipousuario">Tipos de Usuario</a>
+        </mat-menu>
+
+        <mat-menu #SubMenu7="matMenu">
+          <a mat-menu-item href="/clientes">Clientes</a>
+        </mat-menu>
+
+        <mat-menu #SubMenu8="matMenu">
+          <a mat-menu-item href="/tipoproducto">Tipos de Producto</a>
+          <a mat-menu-item href="/producto">Productos</a>
+        </mat-menu>
+
+        <mat-menu #SubMenu9="matMenu">
+          <a mat-menu-item href="/formapago">Formas de Pago</a>
+        </mat-menu>
+
+
+
+
+          <button mat-button [matMenuTriggerFor]="menu2">Consultas</button> <!-- Agregar nombre de Menu-->
+       
+          <mat-menu #menu2="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="SubMenu1">Opcion1</button>
+          
+          </mat-menu>
+          <mat-menu #SubMenu1="matMenu">
+            <a mat-menu-item href="/Html1">html1</a><!--Colocar el nombre del app-routing.module.ts-->
+            
+          </mat-menu>
+       </div>
+  </nav>

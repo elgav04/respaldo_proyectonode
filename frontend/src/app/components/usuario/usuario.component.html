@@ -1,0 +1,106 @@
+<nav class="navbar navbar-dark bg-dark">
+    <a href="/" class="navbar-brand">REGISTRO DE USUARIOS</a>
+ 
+  </nav>
+
+  <div class="agregar_contenedor"></div>
+<div class="row mt-5">
+  <div class="card">
+    <div class="card-body">
+      <form id="formulario" name="formulario" #f="ngForm" (ngSubmit)="AgregarValor()" novalidate>
+
+        <div class="form-group">
+          <label for="" class="control-label" hidden>ID Usuario</label>
+          <input type="text" readonly="readonly" [(ngModel)]="user.userid" name="userid" class="form-control" hidden>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="control-label">ID Empresa</label>
+          <input type="number" [(ngModel)]="user.idempresa" name="idempresa" placeholder="Digite el ID de la Empresa" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="control-label">ID Sucursal</label>
+          <input type="number" [(ngModel)]="user.idsuc" name="idsuc" placeholder="Digite el ID de la Sucursal" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="control-label">ID Tipo Usuario</label>
+          <input type="number" [(ngModel)]="user.idtpusuario" name="idtpusuario" placeholder="Digite el ID del Tipo de Usuario" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="control-label">ID Empleado</label>
+          <input type="number" [(ngModel)]="user.idemp" name="idemp" placeholder="Digite el ID del Empleado" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="control-label">Usuario</label>
+          <input type="text" [(ngModel)]="user.usuario" name="usuario" placeholder="Digite el nombre de usuario" class="form-control" required>
+          <div ng-show="!user.usuario && formulario.$submitted" class="alert alert-warning">Digite el usuario</div>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="control-label">Clave</label>
+          <input type="password" [(ngModel)]="user.clave" name="clave" placeholder="Digite la clave" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="" class="control-label">Tipo</label>
+          <input type="text" [(ngModel)]="user.tipo" name="tipo" placeholder="Digite el tipo" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary" formnovalidate value="Save" onclick="javascript:alert('Registro Almacenado')">
+          Agregar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="form-group">
+  <input type="text" class="form-control" name="filterPost" placeholder="Digite el usuario que desea buscar" [(ngModel)]="filterPost">
+</div>
+
+
+ <div class="container">  
+    <div class="row mt-25">          
+   <table class="table table-borbered table-hover">
+     <thead>
+        <tr>
+            <th>NO</th>
+            <th>ID EMPRESA</th>
+            <th>ID SUCURSAL</th>
+            <th>ID TIPO USUARIO</th>
+            <th>ID EMPLEADO</th>          
+            <th>USUARIO</th>
+            <th>CLAVE</th>
+            <th>TIPO</th>
+            <th>ESTADO</th>
+  
+        </tr>
+  
+      </thead>
+    <tbody >
+  
+                <tr *ngFor="let User of TUser | filterusuario:filterPost">
+                    <td >{{User.userid}}</td>
+                    <td >{{User.idempresa}}</td>
+                    <td >{{User.idsuc}}</td>
+                    <td >{{User.idtpusuario}}</td>
+                    <td >{{User.idemp}}</td>
+                    <td >{{User.usuario}}</td>
+                    <td >{{User.clave}}</td>
+                    <td >{{User.tipo}}</td>
+                    <td >{{User.estado}}</td>
+                    <td> <button  class="btn btn-danger"  (click)="EliminarData(User.userid)" onclick="javascript:alert('Registro Eliminado')">Eliminar</button> </td>
+                    <td>
+                        <button  class="btn btn-success" [routerLink]="['/usuario/edit', User.userid]">Actualizar</button></td>
+                  </tr>
+  
+     </tbody>
+   </table>
+</div>
+</div>
+

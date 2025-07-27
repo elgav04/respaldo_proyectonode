@@ -1,0 +1,132 @@
+<nav class="navbar navbar-dark bg-dark">
+    <a href="/" class="navbar-brand">REGISTRO DE PRODUCTOS</a>
+ 
+  </nav>
+
+  <div class="agregar_contenedor"></div>
+  <div class="row mt-5">
+    <div class="card">
+      <div class="card-body">
+        <form id="formulario" name="formulario" #f="ngForm" (ngSubmit)="AgregarValor()" novalidate>
+          
+          <div class="form-group">
+            <label class="control-label" hidden>No. Producto</label>
+            <input type="text" readonly="readonly" [(ngModel)]="user.num_prod" name="num_prod" class="form-control" hidden>
+          </div>
+  
+          <div class="form-group">
+            <label class="control-label">ID Empresa</label>
+            <input type="number" [(ngModel)]="user.idempresa" name="idempresa" placeholder="Digite el ID de la empresa" class="form-control" required>
+          </div>
+  
+          <div class="form-group">
+            <label class="control-label">ID Sucursal</label>
+            <input type="number" [(ngModel)]="user.idsuc" name="idsuc" placeholder="Digite el ID de la sucursal" class="form-control" required>
+          </div>
+  
+          <div class="form-group">
+            <label class="control-label">ID Tipo Producto</label>
+            <input type="number" [(ngModel)]="user.idtpprod" name="idtpprod" placeholder="Digite el ID del tipo de producto" class="form-control" required>
+          </div>
+  
+          <div class="form-group">
+            <label class="control-label">Descripción</label>
+            <input type="text" [(ngModel)]="user.descripcionprod" name="descripcionprod" placeholder="Digite la descripción del producto" class="form-control">
+          </div>
+  
+          <div class="form-group">
+            <label class="control-label">Presentación</label>
+            <input type="text" [(ngModel)]="user.presentacion" name="presentacion" placeholder="Digite la presentación" class="form-control">
+          </div>
+  
+          <div class="form-group">
+            <label class="control-label">Marca</label>
+            <input type="text" [(ngModel)]="user.marca" name="marca" placeholder="Digite la marca" class="form-control">
+          </div>
+  
+          <div class="form-group">
+            <label class="control-label">Valor</label>
+            <input type="number" step="0.01" [(ngModel)]="user.valor" name="valor" placeholder="Digite el valor" class="form-control">
+          </div>
+  
+          <div class="form-group">
+            <label class="control-label">Precio Venta</label>
+            <input type="number" step="0.01" [(ngModel)]="user.precioventa" name="precioventa" placeholder="Digite el precio de venta" class="form-control">
+          </div>
+  
+          <div class="form-group">
+            <label class="control-label">Existencia</label>
+            <input type="number" [(ngModel)]="user.existencia" name="existencia" placeholder="Digite la existencia" class="form-control">
+          </div>
+  
+          <div class="form-group">
+            <label class="control-label">Fecha de Ingreso</label>
+            <input type="date" [(ngModel)]="user.fecha_ingreso" name="fecha_ingreso" class="form-control">
+          </div>
+  
+          <div class="form-group">
+            <label class="control-label">Fecha de Actualización</label>
+            <input type="date" [(ngModel)]="user.fecha_actualiza" name="fecha_actualiza" class="form-control">
+          </div>
+  
+          <button type="submit" class="btn btn-primary" formnovalidate value="Save" onclick="javascript:alert('Registro Almacenado')">
+            Agregar
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <br>
+  
+  <div class="form-group">
+    <input type="text" class="form-control" name="filterPost" placeholder="Digite el producto que desea buscar" [(ngModel)]="filterPost">
+  </div>
+
+
+ <div class="container">  
+    <div class="row mt-25">          
+   <table class="table table-borbered table-hover">
+     <thead>
+        <tr>
+            <th>NO</th>
+            <th>ID EMPRESA</th>
+            <th>ID SUCURSAL</th>
+            <th>ID TIPO PRODUCTO</th>
+            <th>DESCRIPCION</th>          
+            <th>PRESENTACION</th>
+            <th>MARCA</th>
+            <th>VALOR</th>
+            <th>PRECIO DE VENTA</th>
+            <th>EXISTENCIA</th>
+            <th>FECHA INGRESO</th>
+            <th>FECHA ACTUALIZACION</th>
+            <th>ESTADO</th>
+        </tr>
+  
+      </thead>
+    <tbody >
+  
+                <tr *ngFor="let User of TUser | filterproducto:filterPost">
+                    <td >{{User.num_prod}}</td>
+                    <td >{{User.idempresa}}</td>
+                    <td >{{User.idsuc}}</td>
+                    <td >{{User.idtpprod}}</td>
+                    <td >{{User.descripcionprod}}</td>
+                    <td >{{User.presentacion}}</td>
+                    <td >{{User.marca}}</td>
+                    <td >{{User.valor}}</td>
+                    <td >{{User.precioventa}}</td>
+                    <td >{{User.existencia}}</td>
+                    <td >{{User.fecha_ingreso}}</td>
+                    <td >{{User.fecha_actualiza}}</td>
+                    <td >{{User.estado}}</td>
+                    <td><button  class="btn btn-danger"  (click)="EliminarData(User.num_prod)" onclick="javascript:alert('Registro Eliminado')" >Eliminar</button> </td>
+                    <td>
+                        <button  class="btn btn-success" [routerLink]="['/producto/edit', User.num_prod]">Actualizar</button></td>
+                  </tr>
+  
+     </tbody>
+   </table>
+</div>
+</div>
+

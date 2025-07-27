@@ -1,0 +1,89 @@
+<nav class="navbar navbar-dark bg-dark">
+    <a href="/" class="navbar-brand">REGISTRO DE SUCURSALES</a>
+</nav>
+
+<!--Almacenar registros-->
+<div class="agregar_contenedor"></div>
+<div class="row mt-5">
+<div class="card">
+    <div class="card-body">
+        <form id="formulario" name="formulario" #f="ngForm" (ngSubmit)="AgregarValor()" novalidate >
+          <div class="form-group">
+            <label for="" class="control-label" hidden>Registro No.</label>
+            <input type="text"  readonly="readonly"  [(ngModel)]="user.idsuc" name="idsuc" placeholder="No" class="form-control" required hidden>
+          </div>                  
+
+
+          <div class="form-group">
+            <option>Seleccione la Empresa</option>
+              <select class="form-control" size="1" [(ngModel)]="user.idempresa" name="idsuc" required>
+                     <option *ngFor="let lista of Empresalist" value={{lista.idempresa}}>{{lista.nombre}}</option>
+            </select>
+          </div>
+
+          
+              <div class="form-group">
+                <label for="" class="control-label">Sucursal</label>
+                <input type="text"  [(ngModel)]="user.sucursal"  name="sucursal" placeholder="DIGITE EL NOMBRE DE LA SUCURSAL"  class="form-control" autofocus>
+                <div ng-show="!user.sucursal && formulario.$submitted" class="alert alert-warning">Digite el nombre de la sucursal</div> 
+              </div>
+
+              <div class="form-group">
+                <label for="" class="control-label">Dirección</label>
+                <input type="text"  [(ngModel)]="user.dirsuc"  name="dirsuc" placeholder="DIGITE LA DIRECCION"  class="form-control" autofocus>
+              </div>
+
+              <div class="form-group">
+                <label for="" class="control-label">Telefono</label>
+                <input type="text"  [(ngModel)]="user.telefono"  name="telefono" placeholder="DIGITE EL TELEFONO"  class="form-control" autofocus>
+            </div>
+ 
+          <button type="submit" class="btn btn-primary" formnovalidate value="Save"  onclick="javascript:alert('Registro Almacenado')">
+              Agregar
+          </button>
+
+        </form>
+    </div>
+</div>
+</div>
+<br>
+
+<div class="form-group">
+  <input type="text" class="form-control" name="filterPost" placeholder="Digite la sucursal que desea buscar" [(ngModel)]="filterPost">
+</div>
+
+
+    <!--Registros en tabla-->
+ <div class="container">  
+    <div class="row mt-25">          
+   <table class="table table-borbered table-hover">
+     <thead>
+        <tr>
+            <th>NO</th>
+            <th>EMPRESA</th>
+            <th>SUCURSAL</th>
+            <th>DIRECCION</th>
+            <th>TELEFONO</th>          
+            <th>ESTADO</th>
+  
+        </tr>
+  
+      </thead>
+    <tbody >
+  
+                <tr *ngFor="let User of TUser | filtersucursales:filterPost">
+                    <td >{{User.idsuc}}</td>
+                    <td >{{User.idempresa}}</td>
+                    <td >{{User.sucursal}}</td>
+                    <td >{{User.dirsuc}}</td>
+                    <td >{{User.telefono}}</td>
+                    <td >{{User.estado}}</td>
+                    <td><button  class="btn btn-danger"  (click)="EliminarData(User.idsuc)" onclick="javascript:alert('Registro Eliminado')" >Eliminar</button></td>
+                    <td><button  class="btn btn-success" [routerLink]="['/sucursales/edit', User.idsuc]">Actualizar</button></td>
+                  </tr>
+  
+     </tbody>
+   </table>
+</div>
+</div>
+

@@ -1,0 +1,47 @@
+# --- OUTPUT COMPILADO (frontend y backend) ---
+/dist
+/tmp
+/out-tsc
+/bazel-out
+/build
+/.angular/cache
+
+# --- DEPENDENCIAS ---
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# --- ARCHIVOS DE ENTORNO ---
+.env
+.env.*
+
+# --- IDEs y editores ---
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# --- Visual Studio Code ---
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# --- HISTORIAL de extensiones ---
+.history/*
+
+# --- ARCHIVOS VARIOS ---
+.sass-cache/
+connect.lock
+coverage
+libpeerconnection.log
+testem.log
+typings/
+
+# --- ARCHIVOS DEL SISTEMA ---
+.DS_Store
+Thumbs.db

@@ -1,0 +1,150 @@
+<nav class="navbar navbar-dark bg-dark">
+    <a href="/" class="navbar-brand">REGISTRO DE EMPLEADOS</a>
+ 
+  </nav>
+
+  <div class="agregar_contenedor"></div>
+<div class="row mt-5">
+  <div class="card">
+    <div class="card-body">
+      <form id="formulario" name="formulario" #f="ngForm" (ngSubmit)="AgregarValor()" novalidate>
+        
+        <div class="form-group">
+        <label for="" class="control-label" hidden>Registro No.</label>
+        <input type="text"  readonly="readonly"  [(ngModel)]="user.idemp" name="idemp" placeholder="No" class="form-control" required hidden>
+        </div>  
+
+        <div class="form-group">
+            <label for="" class="control-label">ID Empresa</label>
+            <input type="text"  [(ngModel)]="user.idempresa"  name="idempresa" placeholder="DIGITE EL ID DE LA EMPRESA"  class="form-control" required autofocus>
+        </div> 
+
+        <div class="form-group">
+          <label class="control-label">ID Sucursal</label>
+          <input type="text" [(ngModel)]="user.idsuc" name="idsuc" placeholder="DIGITE EL ID DE LA SUCURSAL" class="form-control" autofocus>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Área</label>
+          <input type="text" [(ngModel)]="user.idarea" name="idarea" placeholder="DIGITE ID DEL ÁREA" class="form-control" autofocus>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Identidad</label>
+          <input type="text" [(ngModel)]="user.identidad" name="identidad" placeholder="DIGITE LA IDENTIDAD" class="form-control" autofocus>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Fecha de Nacimiento</label>
+          <input type="date" [(ngModel)]="user.fecha_nac" name="fecha_nac" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Nombres</label>
+          <input type="text" [(ngModel)]="user.nombres" name="nombres" placeholder="DIGITE LOS NOMBRES" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Apellidos</label>
+          <input type="text" [(ngModel)]="user.apellidos" name="apellidos" placeholder="DIGITE LOS APELLIDOS" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label><input type="checkbox" [(ngModel)]="user.femenino" name="femenino"> Femenino</label>
+        </div>
+
+        <div class="form-group">
+          <label><input type="checkbox" [(ngModel)]="user.masculino" name="masculino"> Masculino</label>
+        </div>
+
+        <div class="form-group">
+          <label><input type="checkbox" [(ngModel)]="user.soltero" name="soltero"> Soltero</label>
+        </div>
+
+        <div class="form-group">
+          <label><input type="checkbox" [(ngModel)]="user.casado" name="casado"> Casado</label>
+        </div>
+
+        <div class="form-group">
+          <label><input type="checkbox" [(ngModel)]="user.unionlibre" name="unionlibre"> Unión Libre</label>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Dirección</label>
+          <input type="text" [(ngModel)]="user.direccion" name="direccion" placeholder="DIGITE LA DIRECCIÓN" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Fecha de Creación</label>
+          <input type="date" [(ngModel)]="user.fecha_creacion" name="fecha_creacion" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary" formnovalidate value="Save" onclick="javascript:alert('Registro Almacenado')">
+          Agregar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="form-group">
+  <input type="text" class="form-control" name="filterPost" placeholder="Digite el nombre del empleado que desea buscar" [(ngModel)]="filterPost">
+</div>
+
+
+ <div class="container">  
+    <div class="row mt-25">          
+   <table class="table table-borbered table-hover">
+     <thead>
+        <tr>
+            <th>NO</th>
+            <th>ID EMPRESA</th>
+            <th>ID SUCURSAL</th>
+            <th>ID AREA</th>
+            <th>IDENTIDAD</th>          
+            <th>FECHA NACIMIENTO</th>
+            <th>NOMBRES</th>
+            <th>APELLIDOS</th>
+            <th>FEMENINO</th>
+            <th>MASCULINO</th>
+            <th>SOLTERO</th>
+            <th>CASADO</th>
+            <th>UNION LIBRE</th>
+            <th>DIRECCION</th>
+            <th>FECHA CREACION</th>
+            <th>ESTADO</th>
+  
+        </tr>
+  
+      </thead>
+    <tbody >
+  
+                <tr *ngFor="let User of TUser | filterempleados:filterPost">
+                    <td >{{User.idemp}}</td>
+                    <td >{{User.idempresa}}</td>
+                    <td >{{User.idsuc}}</td>
+                    <td >{{User.idarea}}</td>
+                    <td >{{User.identidad}}</td>
+                    <td >{{User.fecha_nac}}</td>
+                    <td >{{User.nombres}}</td>
+                    <td >{{User.apellidos}}</td>
+                    <td >{{User.femenino}}</td>
+                    <td >{{User.masculino}}</td>
+                    <td >{{User.soltero}}</td>
+                    <td >{{User.casado}}</td>
+                    <td >{{User.unionlibre}}</td>
+                    <td >{{User.direccion}}</td>
+                    <td >{{User.fecha_creacion}}</td>
+                    <td >{{User.estado}}</td>
+                    <td><button  class="btn btn-danger"  (click)="EliminarData(User.idemp)" onclick="javascript:alert('Registro Eliminado')" >Eliminar</button></td>
+                    <td>
+                        <button  class="btn btn-success" [routerLink]="['/empleados/edit', User.idemp]">Actualizar</button></td>
+                  </tr>
+  
+     </tbody>
+   </table>
+</div>
+</div>
+
+
