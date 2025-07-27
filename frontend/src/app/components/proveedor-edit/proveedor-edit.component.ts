@@ -9,6 +9,9 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './proveedor-edit.component.html',
   styleUrls: ['./proveedor-edit.component.css']
 })
+
+
+
 export class ProveedorEditComponent implements OnInit {
 
   valorInput: number | undefined;
@@ -25,14 +28,18 @@ export class ProveedorEditComponent implements OnInit {
     estado: 'Activo'
   }
 
+  Empresalist: any;  
+
   constructor(private Data: DataService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    
     const params = this.activatedRoute.snapshot.params;
 
     if (params['id']) {
+      this.getDropListEmpresa();
       this.Data.getOne(params['id'],'/proveedor')
         .subscribe(
           res => {
@@ -51,5 +58,11 @@ export class ProveedorEditComponent implements OnInit {
           err => console.error(err)
         );
     }  
+
+    getDropListEmpresa() {
+      this.Data.getDropListEmpresa().subscribe((data:any)=>{
+        this.Empresalist=data;
+      })
+    }
 }
 

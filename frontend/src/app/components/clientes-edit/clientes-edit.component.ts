@@ -27,6 +27,9 @@ export class ClientesEditComponent implements OnInit {
     estado: 'Activo'
   };
 
+  Empresalist: any;  
+  Sucursaleslist: any;  
+
   constructor(private Data: DataService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
@@ -35,6 +38,8 @@ export class ClientesEditComponent implements OnInit {
     const params = this.activatedRoute.snapshot.params;
 
     if (params['id']) {
+      this.getDropListEmpresa();
+      this.getDropListSucursal();
       this.Data.getOne(params['id'],'/clientes')
         .subscribe(
           res => {
@@ -54,4 +59,16 @@ export class ClientesEditComponent implements OnInit {
           err => console.error(err)
         );
     }  
+
+    getDropListEmpresa() {
+      this.Data.getDropListEmpresa().subscribe((data:any)=>{
+        this.Empresalist=data;
+      })
+    }
+  
+    getDropListSucursal() {
+      this.Data.getDropListSucursal().subscribe((data:any)=>{
+        this.Sucursaleslist=data;
+      })
+    }
   }

@@ -13,13 +13,17 @@
               </div>
       
               <div class="form-group">
-                <label for="" class="control-label">ID Empresa</label>
-                <input type="number" [(ngModel)]="user.idempresa" name="idempresa" placeholder="Digite el ID de la Empresa" class="form-control" required>
+                <option>Seleccione la Empresa</option>
+                  <select class="form-control" size="1" [(ngModel)]="user.idempresa" name="idempresa" required>
+                         <option *ngFor="let lista of Empresalist" value={{lista.idempresa}}>{{lista.nombre}}</option>
+                </select>
               </div>
       
               <div class="form-group">
-                <label for="" class="control-label">ID Sucursal</label>
-                <input type="number" [(ngModel)]="user.idsuc" name="idsuc" placeholder="Digite el ID de la Sucursal" class="form-control" required>
+                <option>Seleccione la Sucursal</option>
+                  <select class="form-control" size="1" [(ngModel)]="user.idsuc" name="idsuc" required>
+                         <option *ngFor="let lista of Sucursaleslist" value={{lista.idsuc}}>{{lista.sucursal}}</option>
+                </select>
               </div>
       
               <div class="form-group">

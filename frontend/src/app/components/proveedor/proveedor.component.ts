@@ -24,9 +24,12 @@ export class ProveedorComponent implements OnInit {
 
   filterPost = '';
 
+  Empresalist: any;  
+
   constructor(private Data: DataService) { }
 
   ngOnInit(): void {
+    this.getDropListEmpresa();
     this.getUser();
   }
   getUser() {
@@ -59,4 +62,14 @@ export class ProveedorComponent implements OnInit {
       );
   }
 
+  getDropListEmpresa() {
+    this.Data.getDropListEmpresa().subscribe((data:any)=>{
+      this.Empresalist=data;
+    })
+  }
+
+  getNombreEmpresaPorId(id: number): string {
+    const empresa = this.Empresalist.find((emp: any) => emp.idempresa === id);
+    return empresa ? empresa.nombre : 'Desconocida';
+  }
 }

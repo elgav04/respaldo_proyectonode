@@ -67,4 +67,8 @@ export class SucursalesComponent implements OnInit {
     })
   }
 
+  getNombreEmpresaPorId(id: number): string {
+    const empresa = this.Empresalist.find((emp: any) => emp.idempresa === id);
+    return empresa ? empresa.nombre : 'Desconocida';
+  }
 }

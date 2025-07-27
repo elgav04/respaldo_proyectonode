@@ -20,11 +20,18 @@ export class AreasTrabajoEditComponent implements OnInit  {
     fecha_creacion: null,
     estado: 'Activo'
   };
+
+  Empresalist: any;  
+  Sucursaleslist: any;  
+
   constructor(private Data: DataService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.getDropListEmpresa();
+    this.getDropListSucursal();
+    
     const params = this.activatedRoute.snapshot.params;
 
     if (params['id']) {
@@ -46,5 +53,17 @@ export class AreasTrabajoEditComponent implements OnInit  {
           err => console.error(err)
         );
     }  
+
+    getDropListEmpresa() {
+      this.Data.getDropListEmpresa().subscribe((data:any)=>{
+        this.Empresalist=data;
+      })
+    }
+  
+    getDropListSucursal() {
+      this.Data.getDropListSucursal().subscribe((data:any)=>{
+        this.Sucursaleslist=data;
+      })
+    }
   }
 

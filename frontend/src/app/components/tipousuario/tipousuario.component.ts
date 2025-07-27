@@ -17,11 +17,14 @@ export class TipousuarioComponent implements OnInit {
     estado: 'Activo'
   }
 
+  Empresalist: any;
+
   filterPost = '';
 
   constructor(private Data: DataService) { }
 
   ngOnInit(): void {
+    this.getDropListEmpresa();
     this.getUser();
   }
   getUser() {
@@ -53,4 +56,14 @@ export class TipousuarioComponent implements OnInit {
       );
   }
 
+  getDropListEmpresa() {
+    this.Data.getDropListEmpresa().subscribe((data:any)=>{
+      this.Empresalist=data;
+    })
+  }
+
+  getNombreEmpresaPorId(id: number): string {
+    const empresa = this.Empresalist.find((emp: any) => emp.idempresa === id);
+    return empresa ? empresa.nombre : 'Desconocida';
+  }
 }

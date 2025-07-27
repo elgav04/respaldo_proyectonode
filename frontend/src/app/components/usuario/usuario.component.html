@@ -15,23 +15,31 @@
         </div>
 
         <div class="form-group">
-          <label for="" class="control-label">ID Empresa</label>
-          <input type="number" [(ngModel)]="user.idempresa" name="idempresa" placeholder="Digite el ID de la Empresa" class="form-control" required>
+          <option>Seleccione la Empresa</option>
+            <select class="form-control" size="1" [(ngModel)]="user.idempresa" name="idempresa" required>
+                   <option *ngFor="let lista of Empresalist" value={{lista.idempresa}}>{{lista.nombre}}</option>
+          </select>
         </div>
 
         <div class="form-group">
-          <label for="" class="control-label">ID Sucursal</label>
-          <input type="number" [(ngModel)]="user.idsuc" name="idsuc" placeholder="Digite el ID de la Sucursal" class="form-control" required>
+          <option>Seleccione la Sucursal</option>
+            <select class="form-control" size="1" [(ngModel)]="user.idsuc" name="idsuc" required>
+                   <option *ngFor="let lista of Sucursaleslist" value={{lista.idsuc}}>{{lista.sucursal}}</option>
+          </select>
         </div>
 
         <div class="form-group">
-          <label for="" class="control-label">ID Tipo Usuario</label>
-          <input type="number" [(ngModel)]="user.idtpusuario" name="idtpusuario" placeholder="Digite el ID del Tipo de Usuario" class="form-control" required>
+          <option>Seleccione el tipo de usuario</option>
+            <select class="form-control" size="1" [(ngModel)]="user.idtpusuario" name="idtpusuario" required>
+                   <option *ngFor="let lista of TipousuarioList" value={{lista.idtpusuario}}>{{lista.tipo}}</option>
+          </select>
         </div>
 
         <div class="form-group">
-          <label for="" class="control-label">ID Empleado</label>
-          <input type="number" [(ngModel)]="user.idemp" name="idemp" placeholder="Digite el ID del Empleado" class="form-control" required>
+          <option>Seleccione el empleado</option>
+            <select class="form-control" size="1" [(ngModel)]="user.idemp" name="idemp" required>
+                   <option *ngFor="let lista of EmpleadoList" value={{lista.idemp}}>{{lista.nombres  + ' ' + lista.apellidos}}</option>
+          </select>
         </div>
 
         <div class="form-group">
@@ -45,11 +53,13 @@
           <input type="password" [(ngModel)]="user.clave" name="clave" placeholder="Digite la clave" class="form-control">
         </div>
 
+        <!--
         <div class="form-group">
           <label for="" class="control-label">Tipo</label>
           <input type="text" [(ngModel)]="user.tipo" name="tipo" placeholder="Digite el tipo" class="form-control">
         </div>
-
+        -->
+        
         <button type="submit" class="btn btn-primary" formnovalidate value="Save" onclick="javascript:alert('Registro Almacenado')">
           Agregar
         </button>
@@ -70,13 +80,13 @@
      <thead>
         <tr>
             <th>NO</th>
-            <th>ID EMPRESA</th>
-            <th>ID SUCURSAL</th>
-            <th>ID TIPO USUARIO</th>
-            <th>ID EMPLEADO</th>          
+            <th>EMPRESA</th>
+            <th>SUCURSAL</th>
+            <th>TIPO USUARIO</th>
+            <th>EMPLEADO</th>          
             <th>USUARIO</th>
             <th>CLAVE</th>
-            <th>TIPO</th>
+            <!--<th>TIPO</th>-->
             <th>ESTADO</th>
   
         </tr>
@@ -86,13 +96,13 @@
   
                 <tr *ngFor="let User of TUser | filterusuario:filterPost">
                     <td >{{User.userid}}</td>
-                    <td >{{User.idempresa}}</td>
-                    <td >{{User.idsuc}}</td>
-                    <td >{{User.idtpusuario}}</td>
-                    <td >{{User.idemp}}</td>
+                    <td >{{ getNombreEmpresaPorId(User.idempresa) }}</td>
+                    <td >{{ getNombreSucursalPorId(User.idsuc) }}</td>
+                    <td >{{ getTipousuarioPorId(User.idtpusuario) }}</td>
+                    <td >{{ getNombreEmpleadoPorId(User.idemp) }}</td>
                     <td >{{User.usuario}}</td>
                     <td >{{User.clave}}</td>
-                    <td >{{User.tipo}}</td>
+                    <!--<td >{{User.tipo}}</td>-->
                     <td >{{User.estado}}</td>
                     <td> <button  class="btn btn-danger"  (click)="EliminarData(User.userid)" onclick="javascript:alert('Registro Eliminado')">Eliminar</button> </td>
                     <td>

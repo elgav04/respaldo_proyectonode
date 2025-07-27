@@ -19,11 +19,14 @@ export class TipousuarioEditComponent implements OnInit {
     estado: 'Activo'
   };
 
+  Empresalist: any;
+
   constructor(private Data: DataService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.getDropListEmpresa();
     const params = this.activatedRoute.snapshot.params;
 
     if (params['id']) {
@@ -45,5 +48,16 @@ export class TipousuarioEditComponent implements OnInit {
           err => console.error(err)
         );
     }  
+
+    getDropListEmpresa() {
+      this.Data.getDropListEmpresa().subscribe((data:any)=>{
+        this.Empresalist=data;
+      })
+    }
+  
+    getNombreEmpresaPorId(id: number): string {
+      const empresa = this.Empresalist.find((emp: any) => emp.idempresa === id);
+      return empresa ? empresa.nombre : 'Desconocida';
+    }
   }
 

@@ -16,7 +16,7 @@
 
           <div class="form-group">
             <option>Seleccione la Empresa</option>
-              <select class="form-control" size="1" [(ngModel)]="user.idempresa" name="idsuc" required>
+              <select class="form-control" size="1" [(ngModel)]="user.idempresa" name="idempresa" required>
                      <option *ngFor="let lista of Empresalist" value={{lista.idempresa}}>{{lista.nombre}}</option>
             </select>
           </div>
@@ -73,7 +73,7 @@
   
                 <tr *ngFor="let User of TUser | filtersucursales:filterPost">
                     <td >{{User.idsuc}}</td>
-                    <td >{{User.idempresa}}</td>
+                    <td >{{ getNombreEmpresaPorId(User.idempresa) }}</td>
                     <td >{{User.sucursal}}</td>
                     <td >{{User.dirsuc}}</td>
                     <td >{{User.telefono}}</td>

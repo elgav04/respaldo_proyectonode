@@ -19,6 +19,8 @@ export class TipoproductoEditComponent implements OnInit {
     estado: 'Activo'
   };
 
+  Empresalist: any; 
+
   constructor(private Data: DataService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
@@ -27,6 +29,7 @@ export class TipoproductoEditComponent implements OnInit {
     const params = this.activatedRoute.snapshot.params;
 
     if (params['id']) {
+      this.getDropListEmpresa();
       this.Data.getOne(params['id'],'/tipoproducto')
         .subscribe(
           res => {
@@ -45,4 +48,10 @@ export class TipoproductoEditComponent implements OnInit {
           err => console.error(err)
         );
     }  
+
+    getDropListEmpresa() {
+      this.Data.getDropListEmpresa().subscribe((data:any)=>{
+        this.Empresalist=data;
+      })
+    }
   }
