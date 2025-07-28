@@ -15,18 +15,24 @@
         </div>  
 
         <div class="form-group">
-            <label for="" class="control-label">ID Empresa</label>
-            <input type="text"  [(ngModel)]="user.idempresa"  name="idempresa" placeholder="DIGITE EL ID DE LA EMPRESA"  class="form-control" required autofocus>
-        </div> 
-
-        <div class="form-group">
-          <label class="control-label">ID Sucursal</label>
-          <input type="text" [(ngModel)]="user.idsuc" name="idsuc" placeholder="DIGITE EL ID DE LA SUCURSAL" class="form-control" autofocus>
+          <option>Seleccione la Empresa</option>
+            <select class="form-control" size="1" [(ngModel)]="user.idempresa" name="idempresa" required>
+                   <option *ngFor="let lista of Empresalist" value={{lista.idempresa}}>{{lista.nombre}}</option>
+          </select>
         </div>
 
         <div class="form-group">
-          <label class="control-label">Área</label>
-          <input type="text" [(ngModel)]="user.idarea" name="idarea" placeholder="DIGITE ID DEL ÁREA" class="form-control" autofocus>
+          <option>Seleccione la Sucursal</option>
+            <select class="form-control" size="1" [(ngModel)]="user.idsuc" name="idsuc" required>
+                   <option *ngFor="let lista of Sucursaleslist" value={{lista.idsuc}}>{{lista.sucursal}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <option>Seleccione el área de trabajo</option>
+            <select class="form-control" size="1" [(ngModel)]="user.idarea" name="idarea" required>
+                   <option *ngFor="let lista of AreastrabajoList" value={{lista.idarea}}>{{lista.area}}</option>
+          </select>
         </div>
 
         <div class="form-group">
@@ -99,9 +105,9 @@
      <thead>
         <tr>
             <th>NO</th>
-            <th>ID EMPRESA</th>
-            <th>ID SUCURSAL</th>
-            <th>ID AREA</th>
+            <th>EMPRESA</th>
+            <th>SUCURSAL</th>
+            <th>AREA</th>
             <th>IDENTIDAD</th>          
             <th>FECHA NACIMIENTO</th>
             <th>NOMBRES</th>
@@ -122,18 +128,18 @@
   
                 <tr *ngFor="let User of TUser | filterempleados:filterPost">
                     <td >{{User.idemp}}</td>
-                    <td >{{User.idempresa}}</td>
-                    <td >{{User.idsuc}}</td>
-                    <td >{{User.idarea}}</td>
+                    <td >{{ getNombreEmpresaPorId(User.idempresa) }}</td>
+                    <td >{{ getNombreSucursalPorId(User.idsuc) }}</td>
+                    <td >{{ getAreastrabajoPorId(User.idarea) }}</td>
                     <td >{{User.identidad}}</td>
                     <td >{{User.fecha_nac}}</td>
                     <td >{{User.nombres}}</td>
                     <td >{{User.apellidos}}</td>
-                    <td >{{User.femenino}}</td>
-                    <td >{{User.masculino}}</td>
-                    <td >{{User.soltero}}</td>
-                    <td >{{User.casado}}</td>
-                    <td >{{User.unionlibre}}</td>
+                    <td>{{User.femenino ? 'Sí' : 'No'}}</td>
+                    <td>{{User.masculino ? 'Sí' : 'No'}}</td>
+                    <td>{{User.soltero ? 'Sí' : 'No'}}</td>
+                    <td>{{User.casado ? 'Sí' : 'No'}}</td>
+                    <td>{{User.unionlibre ? 'Sí' : 'No'}}</td>
                     <td >{{User.direccion}}</td>
                     <td >{{User.fecha_creacion}}</td>
                     <td >{{User.estado}}</td>

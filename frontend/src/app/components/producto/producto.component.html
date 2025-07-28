@@ -15,18 +15,24 @@
           </div>
   
           <div class="form-group">
-            <label class="control-label">ID Empresa</label>
-            <input type="number" [(ngModel)]="user.idempresa" name="idempresa" placeholder="Digite el ID de la empresa" class="form-control" required>
+            <option>Seleccione la Empresa</option>
+              <select class="form-control" size="1" [(ngModel)]="user.idempresa" name="idempresa" required>
+                     <option *ngFor="let lista of Empresalist" value={{lista.idempresa}}>{{lista.nombre}}</option>
+            </select>
           </div>
   
           <div class="form-group">
-            <label class="control-label">ID Sucursal</label>
-            <input type="number" [(ngModel)]="user.idsuc" name="idsuc" placeholder="Digite el ID de la sucursal" class="form-control" required>
+            <option>Seleccione la Sucursal</option>
+              <select class="form-control" size="1" [(ngModel)]="user.idsuc" name="idsuc" required>
+                     <option *ngFor="let lista of Sucursaleslist" value={{lista.idsuc}}>{{lista.sucursal}}</option>
+            </select>
           </div>
-  
+
           <div class="form-group">
-            <label class="control-label">ID Tipo Producto</label>
-            <input type="number" [(ngModel)]="user.idtpprod" name="idtpprod" placeholder="Digite el ID del tipo de producto" class="form-control" required>
+            <option>Seleccione el tipo de producto</option>
+              <select class="form-control" size="1" [(ngModel)]="user.idtpprod" name="idtpprod" required>
+                     <option *ngFor="let lista of Tipoproductolist" value={{lista.idtpprod}}>{{lista.tipo}}</option>
+            </select>
           </div>
   
           <div class="form-group">
@@ -89,9 +95,9 @@
      <thead>
         <tr>
             <th>NO</th>
-            <th>ID EMPRESA</th>
-            <th>ID SUCURSAL</th>
-            <th>ID TIPO PRODUCTO</th>
+            <th>EMPRESA</th>
+            <th>SUCURSAL</th>
+            <th>TIPO PRODUCTO</th>
             <th>DESCRIPCION</th>          
             <th>PRESENTACION</th>
             <th>MARCA</th>
@@ -108,9 +114,9 @@
   
                 <tr *ngFor="let User of TUser | filterproducto:filterPost">
                     <td >{{User.num_prod}}</td>
-                    <td >{{User.idempresa}}</td>
-                    <td >{{User.idsuc}}</td>
-                    <td >{{User.idtpprod}}</td>
+                    <td >{{ getNombreEmpresaPorId(User.idempresa) }}</td>
+                    <td >{{ getNombreSucursalPorId(User.idsuc) }}</td>
+                    <td >{{ getTipoproductoPorId(User.idtpprod) }}</td>
                     <td >{{User.descripcionprod}}</td>
                     <td >{{User.presentacion}}</td>
                     <td >{{User.marca}}</td>

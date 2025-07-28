@@ -28,9 +28,17 @@ export class ProductoComponent implements OnInit {
 
   filterPost = '';
 
+  Empresalist: any;  
+  Sucursaleslist: any;  
+  Tipoproductolist: any;
+
   constructor(private Data: DataService) { }
 
   ngOnInit(): void {
+    this.getDropListEmpresa();
+    this.getDropListSucursal();
+    this.getDropListTipoproducto();
+
     this.getUser();
   }
 
@@ -60,5 +68,38 @@ export class ProductoComponent implements OnInit {
         },
         err => console.error(err)
       );
+  }
+
+  getDropListEmpresa() {
+    this.Data.getDropListEmpresa().subscribe((data:any)=>{
+      this.Empresalist=data;
+    })
+  }
+
+  getDropListSucursal() {
+    this.Data.getDropListSucursal().subscribe((data:any)=>{
+      this.Sucursaleslist=data;
+    })
+  }
+
+  getDropListTipoproducto() {
+    this.Data.getDropListTipoProducto().subscribe((data:any)=>{
+      this.Tipoproductolist=data;
+    })
+  }
+
+  getNombreEmpresaPorId(id: number): string {
+    const empresa = this.Empresalist.find((emp: any) => emp.idempresa === id);
+    return empresa ? empresa.nombre : 'Desconocida';
+  }
+
+  getNombreSucursalPorId(id: number): string {
+    const sucursal = this.Sucursaleslist.find((emp: any) => emp.idsuc === id);
+    return sucursal ? sucursal.sucursal : 'Desconocida';
+  }
+
+  getTipoproductoPorId(id: number): string {
+    const tipoproducto = this.Tipoproductolist.find((emp: any) => emp.idtpprod === id);
+    return tipoproducto ? tipoproducto.tipo : 'Desconocido';
   }
 }

@@ -27,11 +27,20 @@ export class ProductoEditComponent implements OnInit {
     fecha_actualiza: null,
     estado: 'Activo'
   };
+
+  Empresalist: any;  
+  Sucursaleslist: any;  
+  Tipoproductolist: any;
+
   constructor(private Data: DataService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.getDropListEmpresa();
+    this.getDropListSucursal();
+    this.getDropListTipoproducto();
+
     const params = this.activatedRoute.snapshot.params;
 
     if (params['id']) {
@@ -54,4 +63,22 @@ export class ProductoEditComponent implements OnInit {
           err => console.error(err)
         );
     }  
+
+    getDropListEmpresa() {
+      this.Data.getDropListEmpresa().subscribe((data:any)=>{
+        this.Empresalist=data;
+      })
+    }
+  
+    getDropListSucursal() {
+      this.Data.getDropListSucursal().subscribe((data:any)=>{
+        this.Sucursaleslist=data;
+      })
+    }
+  
+    getDropListTipoproducto() {
+      this.Data.getDropListTipoProducto().subscribe((data:any)=>{
+        this.Tipoproductolist=data;
+      })
+    }
   }

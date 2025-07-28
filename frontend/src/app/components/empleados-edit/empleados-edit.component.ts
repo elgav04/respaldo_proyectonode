@@ -31,19 +31,34 @@ export class EmpleadosEditComponent implements OnInit  {
     estado: 'Activo'
   };
 
+  Empresalist: any;  
+  Sucursaleslist: any; 
+  AreastrabajoList: any;
+
   constructor(private Data: DataService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.getDropListEmpresa();
+    this.getDropListSucursal();
+    this.getDropListAreastrabajo();
     const params = this.activatedRoute.snapshot.params;
 
     if (params['id']) {
       this.Data.getOne(params['id'],'/empleados')
         .subscribe(
-          res => {
-            this.user = res;
-                                },
+          (res: any) => {
+            const empleado: empleados = {
+              ...res,
+              femenino: !!res.femenino?.data?.[0],
+              masculino: !!res.masculino?.data?.[0],
+              soltero: !!res.soltero?.data?.[0],
+              casado: !!res.casado?.data?.[0],
+              unionlibre: !!res.unionlibre?.data?.[0]
+            };
+            this.user = empleado;
+          },
           err => console.log(err)
         );
     }
@@ -57,5 +72,23 @@ export class EmpleadosEditComponent implements OnInit  {
           err => console.error(err)
         );
     }  
+
+    getDropListEmpresa() {
+      this.Data.getDropListEmpresa().subscribe((data:any)=>{
+        this.Empresalist=data;
+      })
+    }
+  
+    getDropListSucursal() {
+      this.Data.getDropListSucursal().subscribe((data:any)=>{
+        this.Sucursaleslist=data;
+      })
+    }
+  
+    getDropListAreastrabajo() {
+      this.Data.getDropListAreastrabajo().subscribe((data:any)=>{
+        this.AreastrabajoList=data;
+      })
+    }
   }
 

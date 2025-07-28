@@ -13,19 +13,25 @@
             </div>  
     
             <div class="form-group">
-                <label for="" class="control-label">ID Empresa</label>
-                <input type="text"  [(ngModel)]="user.idempresa"  name="idempresa" placeholder="DIGITE EL ID DE LA EMPRESA"  class="form-control" required autofocus>
-            </div> 
-    
-            <div class="form-group">
-                <label class="control-label">ID Sucursal</label>
-                <input type="text" [(ngModel)]="user.idsuc" name="idsuc" placeholder="DIGITE EL ID DE LA SUCURSAL" class="form-control" autofocus>
-            </div>
-    
-            <div class="form-group">
-                <label class="control-label">Área</label>
-                <input type="text" [(ngModel)]="user.idarea" name="idarea" placeholder="DIGITE ID DEL ÁREA" class="form-control" autofocus>
-            </div>
+                <option>Seleccione la Empresa</option>
+                  <select class="form-control" size="1" [(ngModel)]="user.idempresa" name="idempresa" required>
+                         <option *ngFor="let lista of Empresalist" value={{lista.idempresa}}>{{lista.nombre}}</option>
+                </select>
+              </div>
+      
+              <div class="form-group">
+                <option>Seleccione la Sucursal</option>
+                  <select class="form-control" size="1" [(ngModel)]="user.idsuc" name="idsuc" required>
+                         <option *ngFor="let lista of Sucursaleslist" value={{lista.idsuc}}>{{lista.sucursal}}</option>
+                </select>
+              </div>
+      
+              <div class="form-group">
+                <option>Seleccione el área de trabajo</option>
+                  <select class="form-control" size="1" [(ngModel)]="user.idarea" name="idarea" required>
+                         <option *ngFor="let lista of AreastrabajoList" value={{lista.idarea}}>{{lista.area}}</option>
+                </select>
+              </div>
     
             <div class="form-group">
                 <label class="control-label">Identidad</label>

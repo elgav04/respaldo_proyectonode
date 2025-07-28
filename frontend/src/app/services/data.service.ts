@@ -75,5 +75,13 @@ export class DataService {
   getDropListEmpleado():Observable<any[]>{
     return this.http.get<any>(this.API_URI+'/empleados')
     }
+
+  getDropListTipoProducto():Observable<any[]>{
+    return this.http.get<any>(this.API_URI+'/tipoproducto')
+    }
+
+  getDropListAreastrabajo():Observable<any[]>{
+    return this.http.get<any>(this.API_URI+'/areas_trabajo')
+    }
   
 }

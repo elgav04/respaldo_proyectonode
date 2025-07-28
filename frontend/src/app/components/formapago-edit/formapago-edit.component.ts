@@ -18,11 +18,15 @@ export class FormapagoEditComponent implements OnInit {
     formapago: null,
     estado: 'Activo'
   };
+
+  Empresalist: any; 
+
   constructor(private Data: DataService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.getDropListEmpresa();
     const params = this.activatedRoute.snapshot.params;
 
     if (params['id']) {
@@ -44,5 +48,11 @@ export class FormapagoEditComponent implements OnInit {
           err => console.error(err)
         );
     }  
+
+    getDropListEmpresa() {
+      this.Data.getDropListEmpresa().subscribe((data:any)=>{
+        this.Empresalist=data;
+      })
+    }
   }
 
