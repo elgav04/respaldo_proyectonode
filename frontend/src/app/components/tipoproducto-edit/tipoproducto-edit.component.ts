@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { tipoproducto } from '../../interfaces/user';
 import { DataService } from '../../services/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import * as XLSX from 'xlsx';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { DatePipe } from '@angular/common';
 
 
 @Component({

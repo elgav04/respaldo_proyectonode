@@ -66,11 +66,12 @@
   <input type="text" class="form-control" name="filterPost" placeholder="Digite el proveedor que desea buscar" [(ngModel)]="filterPost">
 </div>
 
-
+<button (click)="exportToExcel()" class="btn btn-secondary">Exportar a Excel</button>
+&nbsp;&nbsp; <button class="btn btn-dark" (click)="openPDF()">Descargar PDF</button>
 
  <div class="container">  
     <div class="row mt-25">          
-   <table class="table table-borbered table-hover">
+   <table class="table table-borbered table-hover" id="tabla">
      <thead>
         <tr>
             <th>NO</th>
