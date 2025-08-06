@@ -4,13 +4,16 @@ import { DataService } from '../../services/data.service';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+
 import { DatePipe } from '@angular/common';
+import { saveAs } from 'file-saver';
 
 
 @Component({
   selector: 'app-producto',
   templateUrl: './producto.component.html',
-  styleUrls: ['./producto.component.css']
+  styleUrls: ['./producto.component.css'],
+  providers: [DatePipe]
 })
 export class ProductoComponent implements OnInit {
   TUser: any = [];
@@ -38,7 +41,7 @@ export class ProductoComponent implements OnInit {
 
   name = 'Productos.xlsx';
 
-  constructor(private Data: DataService) { }
+  constructor(private Data: DataService, private datePipe:DatePipe) { }
 
   ngOnInit(): void {
     this.getDropListEmpresa();
@@ -129,4 +132,79 @@ export class ProductoComponent implements OnInit {
       PDF.save('productos.pdf');
     });
   }
+
+  imprimirPDF() {
+    
+        const doc = new jsPDF('landscape');
+        doc.setFontSize(22);
+        doc.text('Listado de Productos Registrados', 90, 15, { align: 'center' });
+        doc.setFontSize(16);
+        doc.text(`Fecha de impresión: ${this.datePipe.transform(new Date(), 'dd/MM/yyyy')}`, 90, 25, { align: 'center' });
+      
+        const tableData = this.TUser.map((productos: producto) => [
+          productos.idsuc?.toString() || 'N/A',
+          this.getNombreEmpresaPorId(productos.idempresa!) || 'N/A',
+          this.getNombreSucursalPorId(productos.idsuc!) || 'N/A',
+          this.getTipoproductoPorId(productos.idtpprod!) || 'N/A',
+          productos.descripcionprod || 'N/A',
+          productos.presentacion || 'N/A',
+          productos.marca || 'N/A',       
+          productos.valor || 'N/A',
+          productos.precioventa || 'N/A',   
+          productos.existencia || 'N/A',   
+          productos.fecha_ingreso || 'N/A',   
+          productos.fecha_actualiza || 'N/A',   
+          productos.estado || 'N/A'  
+        ]);
+        
+        
+        import('jspdf-autotable').then((autoTable) => {
+          
+          autoTable.default(doc, {
+            
+            head: [['ID', 'EMPRESA','SUCURSAL','TIPO PRODUCTO','DESCRIPCIÓN','PRESENTACIÓN','MARCA','VALOR','PRECIO VENTA','EXISTENCIA','FECHA INGRESO','FECHA ACTUALIZACIÓN','ESTADO']],
+            body: tableData,
+            startY: 35,
+            margin: { left: 10 },
+            styles: {
+              fontSize: 8,
+              cellPadding: 3,
+              lineWidth: 0.5,
+              lineColor: [0, 0, 0],
+              overflow: 'ellipsize'
+            },
+            headStyles: {
+              fillColor: [41, 128, 185],
+              textColor: 255,
+              fontStyle: 'bold'
+            },
+            alternateRowStyles: {
+              fillColor: [245, 245, 245]
+            },
+            columnStyles: {
+              0: { cellWidth: 10 },
+              1: { cellWidth: 45 },
+              2: { cellWidth: 45 },
+              3: { cellWidth: 45 },
+              4: { cellWidth: 45 },
+              5: { cellWidth: 35 },
+              6: { cellWidth: 23 },
+            
+              7: { cellWidth: 30 },
+             
+            },
+            
+            didDrawPage: (data) => {
+              doc.setFontSize(10);
+             
+            }
+          
+          
+          });
+          
+         
+          doc.save('listado-productos.pdf');
+          alert('Se ha generado el PDF');  
+        });
+      }
 }

@@ -5,12 +5,15 @@ import { ViewChild, ElementRef } from '@angular/core';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+
 import { DatePipe } from '@angular/common';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-sucursales',
   templateUrl: './sucursales.component.html',
-  styleUrls: ['./sucursales.component.css']
+  styleUrls: ['./sucursales.component.css'],
+  providers: [DatePipe]
 })
 
 export class SucursalesComponent implements OnInit {
@@ -31,7 +34,7 @@ export class SucursalesComponent implements OnInit {
 
   name = 'Sucursales.xlsx';
 
-  constructor(private Data: DataService) { }
+  constructor(private Data: DataService, private datePipe:DatePipe) { }
 
   ngOnInit(): void {
     this.getUser();
@@ -97,4 +100,74 @@ export class SucursalesComponent implements OnInit {
         PDF.save('sucursales.pdf');
       });
     }
+
+    imprimirPDF() {
+  
+      const doc = new jsPDF('landscape');
+      doc.setFontSize(22);
+      doc.text('Listado de sucursales Registradas', 90, 15, { align: 'center' });
+      doc.setFontSize(16);
+      doc.text(`Fecha de impresión: ${this.datePipe.transform(new Date(), 'dd/MM/yyyy')}`, 90, 25, { align: 'center' });
+    
+      const tableData = this.TUser.map((sucursales: sucursales) => [
+        sucursales.idsuc?.toString() || 'N/A',
+        this.getNombreEmpresaPorId(sucursales.idempresa!) || 'N/A',
+        sucursales.sucursal || 'N/A',
+        sucursales.dirsuc || 'N/A',
+        sucursales.telefono || 'N/A',       
+        sucursales.estado || 'N/A'
+      
+      ]);
+      
+      
+      import('jspdf-autotable').then((autoTable) => {
+        
+        autoTable.default(doc, {
+          
+          head: [['ID', 'EMPRESA','SUCURSAL','DIRECCIÓN','TELÉFONO','ESTADO']],
+          body: tableData,
+          startY: 35,
+          margin: { left: 10 },
+          styles: {
+            fontSize: 8,
+            cellPadding: 3,
+            lineWidth: 0.5,
+            lineColor: [0, 0, 0],
+            overflow: 'ellipsize'
+          },
+          headStyles: {
+            fillColor: [41, 128, 185],
+            textColor: 255,
+            fontStyle: 'bold'
+          },
+          alternateRowStyles: {
+            fillColor: [245, 245, 245]
+          },
+          columnStyles: {
+            0: { cellWidth: 10 },
+            1: { cellWidth: 45 },
+            2: { cellWidth: 45 },
+            3: { cellWidth: 45 },
+            4: { cellWidth: 45 },
+            5: { cellWidth: 35 },
+            6: { cellWidth: 23 },
+          
+            7: { cellWidth: 30 },
+           
+          },
+          
+          didDrawPage: (data) => {
+            doc.setFontSize(10);
+           
+          }
+        
+        
+        });
+        
+       
+        doc.save('listado-sucursales.pdf');
+        alert('Se ha generado el PDF');  
+      });
+    }
+    
 }
