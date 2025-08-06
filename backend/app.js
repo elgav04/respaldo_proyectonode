@@ -36,6 +36,9 @@ const sucursalesRoutes = require('./rutas/sucursales');
 const tipoproductoRoutes = require('./rutas/tipoproducto');
 const tipousuarioRoutes = require('./rutas/tipousuario');
 const usuarioRoutes = require('./rutas/usuario');
+const authRoutes = require('./rutas/auth');
+
+const userRoutes = require('./rutas/user');
 
 
 app.set('port', process.env.PORT || 3000);
@@ -67,6 +70,9 @@ app.use('/api/clientes', clientesRoutes);
 app.use('/api/tipoproducto', tipoproductoRoutes);
 app.use('/api/producto', productoRoutes);
 app.use('/api/formapago', formapagoRoutes);
+app.use('/api', authRoutes);
+
+app.use('/api/user',userRoutes);
 
 // archivos estaticos frontend
 app.use(express.static(path.join(__dirname,'public')));

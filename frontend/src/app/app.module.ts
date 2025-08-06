@@ -47,6 +47,11 @@ import { FiltertipoproductoPipe } from './pipes/filtertipoproducto.pipe';
 import { FilterproductoPipe } from './pipes/filterproducto.pipe';
 import { FilterformapagoPipe } from './pipes/filterformapago.pipe';
 
+import { LoginComponent } from './components/login/login.component';
+import { NoAutorizadoComponent } from './components/no-autorizado/no-autorizado.component';
+
+import { JwtHelperService, JWT_OPTIONS }  from '@auth0/angular-jwt'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,7 +88,9 @@ import { FilterformapagoPipe } from './pipes/filterformapago.pipe';
     FilterclientesPipe,
     FiltertipoproductoPipe,
     FilterproductoPipe,
-    FilterformapagoPipe
+    FilterformapagoPipe,
+    LoginComponent,
+    NoAutorizadoComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +101,11 @@ import { FilterformapagoPipe } from './pipes/filterformapago.pipe';
     MatButtonModule,
     MatMenuModule    
   ],
-  providers: [DataService],
+  providers: [DataService,
+    { provide: JWT_OPTIONS, 
+      useValue: JWT_OPTIONS },
+    JwtHelperService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,6 +6,7 @@ import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { DatePipe } from '@angular/common';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'app-empresa',
@@ -32,10 +33,9 @@ export class EmpresaComponent implements OnInit {
   filterPost = '';
 
   name = 'Empresas.xlsx';
-  
   datePipe: any;
 
-  constructor(private Data: DataService) { }
+  constructor(private Data: DataService, private DatePipe:DatePipe ) { }
 
   ngOnInit(): void {
     this.getUser();
@@ -98,7 +98,7 @@ export class EmpresaComponent implements OnInit {
     doc.setFontSize(22);
     doc.text('Listado de Empresas Registrados', 90, 15, { align: 'center' });
     doc.setFontSize(16);
-    doc.text(`Fecha de impresión: ${this.datePipe.transform(new Date(), 'dd/MM/yyyy')}`, 90, 25, { align: 'center' });
+    doc.text(`Fecha de impresión: ${this.DatePipe.transform(new Date(), 'dd/MM/yyyy')}`, 90, 25, { align: 'center' });
   
     const tableData = this.TUser.map((empresas: empresa) => [
       empresas.idempresa?.toString() || 'N/A',
@@ -117,7 +117,7 @@ export class EmpresaComponent implements OnInit {
       
       autoTable.default(doc, {
         
-        head: [['ID', 'EMPRESA','DIRECCION','TELEFONO','CORREO','LICENCIA','FECHA','ESTADO']],
+        head: [['ID', 'EMPRESA','DIRECCION','RTN','TELEFONO','CORREO','CONTACTO','FECHA CREACIÓN','ESTADO']],
         body: tableData,
         startY: 35,
         margin: { left: 10 },
@@ -157,11 +157,9 @@ export class EmpresaComponent implements OnInit {
       
       });
       
-     
       doc.save('listado-empresas.pdf');
       alert('Se ha generado el PDF');  
     });
   }
   
-
 }

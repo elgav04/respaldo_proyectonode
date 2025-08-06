@@ -55,18 +55,19 @@
           <a mat-menu-item href="/formapago">Formas de Pago</a>
         </mat-menu>
 
-
-
-
-          <button mat-button [matMenuTriggerFor]="menu2">Consultas</button> <!-- Agregar nombre de Menu-->
+        
+        <!--
+          <button mat-button [matMenuTriggerFor]="menu2">Consultas</button> 
        
           <mat-menu #menu2="matMenu">
             <button mat-menu-item [matMenuTriggerFor]="SubMenu1">Opcion1</button>
           
           </mat-menu>
           <mat-menu #SubMenu1="matMenu">
-            <a mat-menu-item href="/Html1">html1</a><!--Colocar el nombre del app-routing.module.ts-->
-            
-          </mat-menu>
+            <a mat-menu-item href="/Html1">html1</a>
+  
+          </mat-menu>-->
+
+          <button mat-button (click)="cerrarSesion()">Cerrar sesión</button>
        </div>
   </nav>

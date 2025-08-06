@@ -25,14 +25,30 @@ import { FormapagoEditComponent } from './components/formapago-edit/formapago-ed
 
 import { NavegacionComponent} from './components/navegacion/navegacion.component';
 
+import { LoginComponent } from './components/login/login.component';
+
+import { AuthGuard } from './guards/auth.guard';
+import { RoleGuard } from '././guards/role.guard';
+
+import { NoAutorizadoComponent } from './components/no-autorizado/no-autorizado.component';
+
 const routes: Routes = [
+  {
+    path: 'login',
+    component:LoginComponent
+  },
+  {
+    path: 'no-autorizado',
+    component:NoAutorizadoComponent
+  },
   {
     path: 'navegacion',
     component:NavegacionComponent
   },
   {
     path: 'empresa',
-    component :EmpresaComponent
+    component :EmpresaComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1,2]  }
   },
   {
     path: 'empresa/edit/:id',
@@ -40,7 +56,8 @@ const routes: Routes = [
   },
   {
     path: 'sucursales',
-    component :SucursalesComponent
+    component :SucursalesComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1,2,3]  }
   },
   {
     path: 'sucursales/edit/:id',
@@ -48,7 +65,8 @@ const routes: Routes = [
   },
   {
     path: 'proveedor',
-    component :ProveedorComponent
+    component :ProveedorComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1,2]  }
   },
   {
     path: 'proveedor/edit/:id',
@@ -56,7 +74,8 @@ const routes: Routes = [
   },
   {
     path: 'areas_trabajo',
-    component :AreasTrabajoComponent
+    component :AreasTrabajoComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1]  }
   },
   {
     path: 'areas_trabajo/edit/:id',
@@ -64,7 +83,8 @@ const routes: Routes = [
   },
   {
     path: 'empleados',
-    component :EmpleadosComponent
+    component :EmpleadosComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1]  }
   },
   {
     path: 'empleados/edit/:id',
@@ -72,7 +92,8 @@ const routes: Routes = [
   },
   {
     path: 'tipousuario',
-    component :TipousuarioComponent
+    component :TipousuarioComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1]  }
   },
   {
     path: 'tipousuario/edit/:id',
@@ -80,7 +101,8 @@ const routes: Routes = [
   },
   {
     path: 'usuario',
-    component :UsuarioComponent
+    component :UsuarioComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1]  }
   },
   {
     path: 'usuario/edit/:id',
@@ -88,7 +110,8 @@ const routes: Routes = [
   },
   {
     path: 'clientes',
-    component :ClientesComponent
+    component :ClientesComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1,2]  }
   },
   {
     path: 'clientes/edit/:id',
@@ -96,7 +119,8 @@ const routes: Routes = [
   },
   {
     path: 'tipoproducto',
-    component :TipoproductoComponent
+    component :TipoproductoComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1,2]  }
   },
   {
     path: 'tipoproducto/edit/:id',
@@ -104,7 +128,8 @@ const routes: Routes = [
   },
   {
     path: 'producto',
-    component :ProductoComponent
+    component :ProductoComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1,2,3]  }
   },
   {
     path: 'producto/edit/:id',
@@ -112,11 +137,23 @@ const routes: Routes = [
   },
   {
     path: 'formapago',
-    component :FormapagoComponent
+    component :FormapagoComponent,
+    canActivate:  [RoleGuard] ,data: { roles: [1]  }
   },
   {
     path: 'formapago/edit/:id',
     component :FormapagoEditComponent
+  },
+
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  // Ruta para manejar rutas no definidas
+  {
+    path: '**',
+    redirectTo: '/login'
   }
 
 ];
